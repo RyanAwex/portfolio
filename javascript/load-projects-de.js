@@ -55,15 +55,23 @@ lightMode.addEventListener('click', () => {
 
 
 // show Sidebar
-showSidebar.addEventListener('click', () => {
-  sidebar.style.display = 'flex';
-})
-  
+showSidebar.addEventListener("click", () => {
+  sidebar.style.display = "flex";
+  document.body.addEventListener("click", closeSidebarOnClickOutside);
+});
 
 // close Sidebar
-closeSidebar.addEventListener('click', () => {
-  sidebar.style.display = 'none';
-})
+closeSidebar.addEventListener("click", () => {
+  sidebar.style.display = "none";
+  document.body.removeEventListener("click", closeSidebarOnClickOutside);
+});
+
+function closeSidebarOnClickOutside(event) {
+  if (!sidebar.contains(event.target) && !showSidebar.contains(event.target)) {
+    sidebar.style.display = "none";
+    document.body.removeEventListener("click", closeSidebarOnClickOutside);
+  }
+}
 
 
 function loadProjectsDe() {
